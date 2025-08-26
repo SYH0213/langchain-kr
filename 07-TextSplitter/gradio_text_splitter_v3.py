@@ -88,14 +88,13 @@ def save_session_json(input_text, output_text):
         json.dump(session_data, f, ensure_ascii=False, indent=4)
         return f.name
 
-def save_session_md(input_text, output_text, chunk_size, chunk_overlap):
-    if not any([input_text, output_text, chunk_size, chunk_overlap]): return None
+def save_session_md(input_text, output_text):
+    if not input_text and not output_text: return None
     
-    md_content = f"# ✔️ Settings\n\n- **Chunk Size:** `{chunk_size}`\n- **Chunk Overlap:** `{chunk_overlap}`\n\n---\n\n"
-    md_content += "## 📜 Input Data\n\n"
+    md_content = "## 원본 데이터 Input Data\n\n"
     md_content += f"```\n{input_text}\n```\n\n"
     md_content += "\n---\n\n"
-    md_content += "## 쪼개진 Output Data\n\n"
+    md_content += "## 분할된 청크 Output Data\n\n"
 
     if output_text:
         for i, chunk in enumerate(output_text):
@@ -106,13 +105,12 @@ def save_session_md(input_text, output_text, chunk_size, chunk_overlap):
                 md_content += f"```\n{chunk['page_content']}\n```\n\n"
             else: # Assuming it's a simple string
                 md_content += f"```\n{chunk}\n```\n\n"
-            md_content += "---\n"
+            md_content += "---"
 
 
     with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.md', encoding='utf-8') as f:
         f.write(md_content)
         return f.name
-
 
 def load_session(file):
     if file is not None:
