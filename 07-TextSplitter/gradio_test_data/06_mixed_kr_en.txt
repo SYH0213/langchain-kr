@@ -1,0 +1,7 @@
+첫 문단은 아주 짧습니다.
+
+두 번째 문단은 상대적으로 길게 작성하여 Character 기반 분할에서 문맥 파손이 얼마나 발생하는지 관찰합니다. 
+또한 영어 문장이 섞여 있을 때 tokenization이 어떻게 달라지는지도 확인합니다. 
+For example, some sentences in English might change the token count drastically depending on the tokenizer rules used by your LLM.
+
+마지막 문단은 표기 변형을 포함합니다: RAG, Rag, retrieval-augmented generation.

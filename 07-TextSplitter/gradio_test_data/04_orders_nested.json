@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "source": "demo-api",
+    "version": "2025-08-26"
+  },
+  "users": [
+    {
+      "id": "u1",
+      "name": "Kim",
+      "orders": [
+        {
+          "id": "o-100",
+          "items": [
+            {
+              "sku": "A100",
+              "qty": 2
+            },
+            {
+              "sku": "C300",
+              "qty": 1
+            }
+          ],
+          "total": 10.4
+        },
+        {
+          "id": "o-101",
+          "items": [
+            {
+              "sku": "B200",
+              "qty": 1
+            }
+          ],
+          "total": 9.9
+        }
+      ]
+    },
+    {
+      "id": "u2",
+      "name": "Lee",
+      "orders": [
+        {
+          "id": "o-200",
+          "items": [
+            {
+              "sku": "A100",
+              "qty": 1
+            }
+          ],
+          "total": 3.85,
+          "note": "coupon: RAG10"
+        }
+      ]
+    }
+  ],
+  "logs": [
+    {
+      "t": "10:00",
+      "event": "create",
+      "ref": "o-100"
+    },
+    {
+      "t": "10:03",
+      "event": "pay",
+      "ref": "o-100"
+    },
+    {
+      "t": "10:05",
+      "event": "ship",
+      "ref": "o-100"
+    }
+  ]
+}

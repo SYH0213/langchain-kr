@@ -1,0 +1,21 @@
+첫 문단은 아주 짧습니다.
+
+두 번째 문단은 상대적으로 길게 작성하여 Character 기반 분할에서 문맥 파손이 얼마나 발생하는지 관찰합니다. 
+또한 영어 문장이 섞여 있을 때 tokenization이 어떻게 달라지는지도 확인합니다. 
+For example, some sentences in English might change the token count drastically depending on the tokenizer rules used by your LLM.
+
+세 번째 문단은 추가로 한국어와 영어가 교차하며 등장하는 실험용 텍스트입니다. 문장이 길어지면 Character 단위 분할에서는 
+중간이 잘려서 의미가 불명확해질 수 있습니다. On the other hand, semantic-based chunking may still try to keep contextually 
+related sentences together, which is often more useful when building RAG pipelines.
+
+네 번째 문단에서는 혼합된 표현과 특수 기호들을 추가합니다: RAG, Rag, retrieval-augmented generation. 
+이러한 변형 표기가 실제로 임베딩 시 얼마나 비슷하게 인식되는지도 실험할 수 있습니다. 
+Numbers like 1234567890 or mixed symbols $#@! are also included to observe tokenizer behaviors.
+
+다섯 번째 문단은 더 길게 작성해봅니다. 
+한국어 문장 여러 개를 이어 붙이고, 영어 예시를 포함시켜서 길이가 수백 자에 이르도록 만듭니다. 
+이렇게 하면 CharacterTextSplitter에서 특정 chunk_size를 초과할 경우 청크가 잘려 나가면서 overlap이 제대로 동작하는지를 
+확인할 수 있습니다. Furthermore, this paragraph demonstrates how a long sequence of sentences in two languages can challenge 
+simple length-based splitting methods, while RecursiveCharacterTextSplitter might preserve sentence boundaries more effectively.
+
+여섯 번째 문단은 마무리 성격으로 간단히 작성합니다. Thank you for testing this mixed-language file.
