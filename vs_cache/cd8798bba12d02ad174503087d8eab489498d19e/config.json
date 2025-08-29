@@ -1,0 +1,10 @@
+{
+    "file_name": "내장 샘플",
+    "model_name": "HuggingFace (multilingual-e5-large-instruct)",
+    "preprocess": [],
+    "chunking": {
+        "use": true,
+        "size": 500,
+        "overlap": 50
+    }
+}
