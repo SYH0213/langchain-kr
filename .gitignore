@@ -28,7 +28,8 @@
 */corpus/*
 */mlruns/*
 working/
-
+**/cj/*
+**/poppler-25.07.0/*
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
