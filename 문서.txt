@@ -1,0 +1,11 @@
+사이드 패널
+
+원인: Gemini는 messages 포맷에서 assistant로 끝나면 안 됨.
+
+OpenAI에서는 동작했는데 Gemini에서는 깨지는 전형적인 차이점입니다.
+
+근본적 대안: LangGraph 내에서 state["messages"]를 그대로 넘기지 말고, “검증”이나 “재질문”처럼 모델에게 질의하는 노드에서는 항상 HumanMessage를 만들어 넘겨주는 게 안전합니다.
+
+👉 지금은 model_check_query에서 마지막 메시지가 AIMessage 상태라 Gemini가 거부하는 거니, HumanMessage로 래핑해서 보내면 해결될 겁니다.
+
+원하시면 제가 query_gen_node까지 포함해서 전체 그래프에서 항상 user 메시지로 끝나게 보정하는 코드를 제안드릴까요?
