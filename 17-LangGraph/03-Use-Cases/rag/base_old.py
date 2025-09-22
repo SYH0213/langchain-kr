@@ -7,15 +7,7 @@ from abc import ABC, abstractmethod
 from operator import itemgetter
 from langchain import hub
 
-DEBUG = True
 
-# ==================================================================================
-# @abstractmethod의 역할: 추상 메서드로 지정된 메서드는 하위 클래스에서 반드시 구현해야 하는 메서드임을 나타냅니다.
-#
-# 구현 강제: RetrievalChain 클래스를 상속받는 모든 하위 클래스는 반드시 이 load_documents 메서드를 자신의 고유한
-# 로직으로 **구현(override)**해야 합니다. 만약 하위 클래스가 load_documents 메서드를 구현하지 않고 객체를 생성하려
-# 하면, TypeError가 발생합니다.
-# ==================================================================================
 class RetrievalChain(ABC):
     def __init__(self, **kwargs):
         self.source_uri = kwargs.get("source_uri", None)
@@ -39,7 +31,6 @@ class RetrievalChain(ABC):
     def create_embedding(self):
         return OpenAIEmbeddings(model="text-embedding-3-small")
 
-    # 참조 : https://python.langchain.com/api_reference/core/vectorstores/langchain_core.vectorstores.base.VectorStoreRetriever.html#langchain_core.vectorstores.base.VectorStoreRetriever
     def create_vectorstore(self, split_docs):
         return FAISS.from_documents(
             documents=split_docs, embedding=self.create_embedding()
@@ -62,24 +53,11 @@ class RetrievalChain(ABC):
     def format_docs(docs):
         return "\n".join(docs)
 
-    def get_docs(self):
-        return self.docs
-
-    def get_split_docs(self):
-        return self.split_docs
-
     def create_chain(self):
-        if DEBUG:
-            self.docs = self.load_documents(self.source_uri)
-            text_splitter = self.create_text_splitter()
-            self.split_docs = self.split_documents(self.docs, text_splitter)
-            self.vectorstore = self.create_vectorstore(self.split_docs)
-        else:
-            docs = self.load_documents(self.source_uri)
-            text_splitter = self.create_text_splitter()
-            split_docs = self.split_documents(docs, text_splitter)
-            self.vectorstore = self.create_vectorstore(split_docs)
-
+        docs = self.load_documents(self.source_uri)
+        text_splitter = self.create_text_splitter()
+        split_docs = self.split_documents(docs, text_splitter)
+        self.vectorstore = self.create_vectorstore(split_docs)
         self.retriever = self.create_retriever(self.vectorstore)
         model = self.create_model()
         prompt = self.create_prompt()
